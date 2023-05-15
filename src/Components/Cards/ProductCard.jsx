@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import useShoppingCart from "../../Hooks/useShoppingCart";
 
 const CardContainer = styled.div`
   display: grid;
@@ -47,7 +48,7 @@ const CardButton = styled.button`
   cursor: pointer;
 `;
 
-// const DeleteButton = styled.button`
+// const DeleteButtonAll = styled.button`
 //   background-color: #ff0000;
 //   color: #fff;
 //   padding: 8px 16px;
@@ -55,13 +56,21 @@ const CardButton = styled.button`
 //   border-radius: 4px;
 //   font-size: 14px;
 //   cursor: pointer;
-
-//   &:hover {
-//     background-color: #cc0000;
-//   }
 // `
 
+const DeleteButtonItem = styled.button`
+  background-color: #ff0000;
+  color: #fff;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+`
+
 const ProductCard = ({ item, increaseCartQuantity, returnAmount }) => {
+
+  const { deleteItem } = useShoppingCart();
 
   const { thumbnail, title, description, price } = item;
 
@@ -76,6 +85,7 @@ const ProductCard = ({ item, increaseCartQuantity, returnAmount }) => {
 
       <CardPrice>dk. {price}</CardPrice>
       <CardButton onClick={() => increaseCartQuantity(item.id, item.price, item, 1)}>Køb</CardButton>
+      <DeleteButtonItem onClick={() => deleteItem(item.id)}>Slet</DeleteButtonItem>
     </CardContainer>
   );
 };

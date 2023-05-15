@@ -38,14 +38,22 @@ const useShoppingCart = () => {
     }, [findProduct]);
 
     // Delete item by id
+    const deleteItem = useCallback((id) => {
+        console.log('Deleting item:', id);
+        setShoppingCart((prev) => prev.filter((item) => item.id !== id));
+      }, []);
+
+
     // Delete all items
+      
     // decreaseCartQuantity
+
+
 
     const returnAmount = useCallback((id) => {
         const itemAmount = findProduct(id)?.amount;
         return itemAmount;
       }, [findProduct]);
-
 
 
     //Update shoppingCart
@@ -54,7 +62,7 @@ const useShoppingCart = () => {
     }, [shoppingCart]);
 
     // shoppingcart er blå fordi det er en værdi, og den gule farve er en funktion
-    return { increaseCartQuantity, returnAmount, shoppingCart };
+    return { increaseCartQuantity, returnAmount, deleteItem, shoppingCart };
 
 }
 
