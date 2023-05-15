@@ -1,9 +1,13 @@
 import ProductCard from "./Components/Cards/ProductCard";
 import { GridSection } from "./Components/Sections/GridSection";
-import { useFetch } from "./Hooks/fetch";
+import { useFetch } from "./Hooks/useFetch";
+import useShoppingCart from "./Hooks/useShoppingCart";
 
 function App() {
-  const url = "https://dummyjson.com/products";
+
+  const { increaseCartQuantity, returnAmount, shoppingCart} = useShoppingCart();
+
+  const url = "https://dummyjson.com/products?limit=8";
 
   const { apiData, loading, error } = useFetch(url, "products");
 
@@ -19,7 +23,7 @@ function App() {
     <>
       <GridSection size="300px">
         {apiData.map((item, i) => (
-          <ProductCard key={i} item={item} />
+          <ProductCard key={i} item={item} {...{increaseCartQuantity, returnAmount}} />
         ))}
       </GridSection>
     </>

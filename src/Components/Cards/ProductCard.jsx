@@ -36,18 +36,18 @@ const CardPrice = styled.p`
   margin: 0;
 `;
 
-// const CardButton = styled.button`
-//   padding: 10px 20px;
-//   font-size: 16px;
-//   font-weight: bold;
-//   background-color: #007bff;
-//   color: #fff;
-//   border: none;
-//   border-radius: 4px;
-//   cursor: pointer;
-// `;
+const CardButton = styled.button`
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+`;
 
-const ProductCard = ({ item }) => {
+const ProductCard = ({ item, increaseCartQuantity, returnAmount }) => {
   const { thumbnail, title, description, price } = item;
   return (
     <CardContainer>
@@ -56,7 +56,10 @@ const ProductCard = ({ item }) => {
       <CardDescription>
         {description} <br />
       </CardDescription>
+      {returnAmount(item.id)}
+
       <CardPrice>dk. {price}</CardPrice>
+      <CardButton onClick={() => increaseCartQuantity(item.id, item.price, item, 1)}>Køb</CardButton>
     </CardContainer>
   );
 };
