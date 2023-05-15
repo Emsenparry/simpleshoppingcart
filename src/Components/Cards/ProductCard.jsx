@@ -47,8 +47,24 @@ const CardButton = styled.button`
   cursor: pointer;
 `;
 
+// const DeleteButton = styled.button`
+//   background-color: #ff0000;
+//   color: #fff;
+//   padding: 8px 16px;
+//   border: none;
+//   border-radius: 4px;
+//   font-size: 14px;
+//   cursor: pointer;
+
+//   &:hover {
+//     background-color: #cc0000;
+//   }
+// `
+
 const ProductCard = ({ item, increaseCartQuantity, returnAmount }) => {
+
   const { thumbnail, title, description, price } = item;
+
   return (
     <CardContainer>
       <CardImage src={thumbnail} alt={title} />

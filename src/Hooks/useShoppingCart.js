@@ -10,7 +10,7 @@ const useShoppingCart = () => {
     const [shoppingCart, setShoppingCart] = useState(Cart)
 
     const findProduct = useCallback((id) => {
-        
+
         // find() finder den første, og så går den ikke videre
         const itemObj = shoppingCart.find((item) => item.id === id)
 
@@ -21,16 +21,16 @@ const useShoppingCart = () => {
     const increaseCartQuantity = useCallback((id, price, item, amount) => {
 
         // Hvis den returnere undefinder så skal shoppingcart returnere ...
-        if(findProduct(id) === undefined) {
-            setShoppingCart(prev => [...prev, {id, price, item, amount}])
-        } else{
+        if (findProduct(id) === undefined) {
+            setShoppingCart(prev => [...prev, { id, price, item, amount }])
+        } else {
             setShoppingCart(prev => prev.map((item) => {
-                if(item.id === id) {
+                if (item.id === id) {
                     return {
-                        ...item, amount: item.amount+1
+                        ...item, amount: item.amount + 1
                     }
                 } else {
-                    return{...item};
+                    return { ...item };
                 }
             }))
         }
@@ -41,11 +41,12 @@ const useShoppingCart = () => {
     // Delete all items
     // decreaseCartQuantity
 
-    const returnAmount = (id) => {
-        // Ud fra det id ^ 
-        const itemAmount = findProduct(id)?.amount
+    const returnAmount = useCallback((id) => {
+        const itemAmount = findProduct(id)?.amount;
         return itemAmount;
-    };
+      }, [findProduct]);
+
+
 
     //Update shoppingCart
     useEffect(() => {

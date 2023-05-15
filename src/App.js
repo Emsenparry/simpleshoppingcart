@@ -1,11 +1,12 @@
 import ProductCard from "./Components/Cards/ProductCard";
 import { GridSection } from "./Components/Sections/GridSection";
+import ShoppingCart from "./Components/ShoppingCart";
 import { useFetch } from "./Hooks/useFetch";
 import useShoppingCart from "./Hooks/useShoppingCart";
 
 function App() {
 
-  const { increaseCartQuantity, returnAmount, shoppingCart} = useShoppingCart();
+  const { increaseCartQuantity, returnAmount} = useShoppingCart();
 
   const url = "https://dummyjson.com/products?limit=8";
 
@@ -26,6 +27,7 @@ function App() {
           <ProductCard key={i} item={item} {...{increaseCartQuantity, returnAmount}} />
         ))}
       </GridSection>
+      <ShoppingCart />
     </>
   );
 }
