@@ -6,7 +6,7 @@ import useShoppingCart from "./Hooks/useShoppingCart";
 
 function App() {
 
-  const { increaseCartQuantity, returnAmount} = useShoppingCart();
+  const { increaseCartQuantity, deleteProduct, decreaseCartQuantity, returnAmount} = useShoppingCart();
 
   const url = "https://dummyjson.com/products?limit=8";
 
@@ -24,7 +24,7 @@ function App() {
     <>
       <GridSection size="300px">
         {apiData.map((item, i) => (
-          <ProductCard key={i} item={item} {...{increaseCartQuantity, returnAmount}} />
+          <ProductCard key={i} item={item} {...{increaseCartQuantity, returnAmount, decreaseCartQuantity, deleteProduct}} />
         ))}
       </GridSection>
       <ShoppingCart />

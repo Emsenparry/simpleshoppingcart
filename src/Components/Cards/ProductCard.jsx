@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import useShoppingCart from "../../Hooks/useShoppingCart";
+import { FaTrash } from "react-icons/fa";
 
 const CardContainer = styled.div`
   display: grid;
@@ -9,6 +9,7 @@ const CardContainer = styled.div`
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 8px;
+  position: relative;
 `;
 
 const CardImage = styled.img`
@@ -37,10 +38,17 @@ const CardPrice = styled.p`
   margin: 0;
 `;
 
+const CardButtonContainer = styled.div`
+  display: flex;
+  gap: 10px;
+  
+`;
+
 const CardButton = styled.button`
   padding: 10px 20px;
   font-size: 16px;
   font-weight: bold;
+  width: 35%;
   background-color: #007bff;
   color: #fff;
   border: none;
@@ -48,30 +56,36 @@ const CardButton = styled.button`
   cursor: pointer;
 `;
 
-// const DeleteButtonAll = styled.button`
-//   background-color: #ff0000;
-//   color: #fff;
-//   padding: 8px 16px;
-//   border: none;
-//   border-radius: 4px;
-//   font-size: 14px;
-//   cursor: pointer;
-// `
-
-const DeleteButtonItem = styled.button`
-  background-color: #ff0000;
+const ReducerButton = styled.button`
+  padding: 10px 20px;
+  font-size: 16px;
+  width: 35%;
+  font-weight: bold;
+  background-color: #dc3545;
   color: #fff;
-  padding: 8px 16px;
   border: none;
   border-radius: 4px;
-  font-size: 14px;
   cursor: pointer;
-`
+`;
 
-const ProductCard = ({ item, increaseCartQuantity, returnAmount }) => {
+const TrashIcon = styled(FaTrash)`
+  /* New styled component for the trash icon */
+  color: black;
+  font-size: 20px;
+  cursor: pointer;
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  cursor: pointer;
+`;
 
-  const { deleteItem } = useShoppingCart();
-
+const ProductCard = ({
+  item,
+  increaseCartQuantity,
+  returnAmount,
+  decreaseCartQuantity,
+  deleteProduct,
+}) => {
   const { thumbnail, title, description, price } = item;
 
   return (
@@ -84,8 +98,23 @@ const ProductCard = ({ item, increaseCartQuantity, returnAmount }) => {
       {returnAmount(item.id)}
 
       <CardPrice>dk. {price}</CardPrice>
-      <CardButton onClick={() => increaseCartQuantity(item.id, item.price, item, 1)}>Køb</CardButton>
-      <DeleteButtonItem onClick={() => deleteItem(item.id)}>Slet</DeleteButtonItem>
+      <CardButtonContainer>
+        <CardButton
+          onClick={() => increaseCartQuantity(item.id, item.price, item, 1)}
+        >
+          Køb
+        </CardButton>
+        {returnAmount(item.id) > 0 && (
+          <>
+            <ReducerButton onClick={() => decreaseCartQuantity(item.id)}>
+              Reducer
+            </ReducerButton>
+            {returnAmount(item.id) > 0 && (
+              <TrashIcon onClick={() => deleteProduct(item.id)} />
+            )}
+          </>
+        )}
+      </CardButtonContainer>
     </CardContainer>
   );
 };
